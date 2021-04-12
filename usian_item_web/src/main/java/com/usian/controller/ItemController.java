@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Map;
+
 @RestController
 @RequestMapping("backend/item")
 public class ItemController {
@@ -37,6 +39,24 @@ public class ItemController {
         PageResult pageResult = itemServiceFeign.selectTbItemAllByPage(page, rows);
         if (pageResult.getResult() != null && pageResult.getResult().size() > 0) {
             return Result.ok(pageResult);
+        }
+        return Result.error("查无结果");
+    }
+
+    @RequestMapping("insertTbItem")
+    public Result insertTbItem(TbItem tbItem,String desc,String itemParams){
+        Integer count = itemServiceFeign.insertTbItem(tbItem,desc,itemParams);
+        if(count == 3){
+            return Result.ok();
+        }
+        return Result.error("数据插入失败");
+    }
+
+    @RequestMapping("preUpdateItem")
+    public Result preUpdateItem(Long itemId){
+        Map<String,Object> map = itemServiceFeign.preUpdateItem(itemId);
+        if(map.size() > 0){
+            return Result.ok(map);
         }
         return Result.error("查无结果");
     }
