@@ -70,4 +70,14 @@ public class ItemController {
         return Result.error("删除失败");
     }
 
+
+    @RequestMapping("updateTbItem")
+    public Result updateTbItem(TbItem tbItem,String desc,String itemParams){
+        Integer count = itemServiceFeign.updateTbItem(tbItem,desc,itemParams);
+        if(count == 3){
+            return Result.ok();
+        }
+        return Result.error("修改失败");
+    }
+
 }

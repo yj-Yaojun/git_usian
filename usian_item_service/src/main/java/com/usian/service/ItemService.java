@@ -84,6 +84,7 @@ public class ItemService {
         tbItemParamItem.setCreated(date);
         tbItemParamItem.setUpdated(date);
         int i3 = tbItemParamItemMapper.insert(tbItemParamItem);
+
         return i1 + i2 + i3;
     }
 
@@ -113,5 +114,29 @@ public class ItemService {
         tbItem.setStatus((byte) 3);
         tbItem.setUpdated(new Date());
         return tbItemMapper.updateByPrimaryKeySelective(tbItem);
+    }
+
+    public Integer updateTbItem(TbItem tbItem, String desc, String itemParams) {
+       tbItem.setUpdated(new Date());
+       int tbitemNum = tbItemMapper.updateByPrimaryKeySelective(tbItem);
+
+       TbItemDesc tbItemDesc = new TbItemDesc();
+       tbItemDesc.setItemId(tbItem.getId());
+       tbItemDesc.setItemDesc(desc);
+       tbItemDesc.setUpdated(new Date());
+       int tbItemDescNum = tbItemDescMapper.updateByPrimaryKeySelective(tbItemDesc);
+
+
+       TbItemParamItem tbItemParamItem = new TbItemParamItem();
+       tbItemParamItem.setParamData(itemParams);
+       tbItemParamItem.setUpdated(new Date());
+
+       TbItemParamItemExample tbItemParamItemExample = new TbItemParamItemExample();
+       TbItemParamItemExample.Criteria criteria = tbItemParamItemExample.createCriteria();
+       criteria.andItemIdEqualTo(tbItem.getId());
+       int tbItemParamItemNum = tbItemParamItemMapper.updateByExampleSelective(tbItemParamItem,tbItemParamItemExample);
+
+        return tbitemNum+tbItemDescNum+tbItemParamItemNum;
+
     }
 }
