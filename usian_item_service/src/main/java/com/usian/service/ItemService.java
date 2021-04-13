@@ -106,4 +106,12 @@ public class ItemService {
         }
         return map;
     }
+
+    public Integer deleteItemById(Long itemId) {
+        TbItem tbItem = new TbItem();
+        tbItem.setId(itemId);
+        tbItem.setStatus((byte) 3);
+        tbItem.setUpdated(new Date());
+        return tbItemMapper.updateByPrimaryKeySelective(tbItem);
+    }
 }

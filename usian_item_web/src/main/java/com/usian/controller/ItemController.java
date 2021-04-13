@@ -60,4 +60,14 @@ public class ItemController {
         }
         return Result.error("查无结果");
     }
+
+    @RequestMapping("deleteItemById")
+    public Result deleteItemById(Long itemId){
+        Integer result = itemServiceFeign.deleteItemById(itemId);
+        if(result == 1){
+            return  Result.ok();
+        }
+        return Result.error("删除失败");
+    }
+
 }

@@ -30,4 +30,7 @@ public interface ItemServiceFeign {
 
     @RequestMapping("service/item/preUpdateItem")
     Map<String, Object> preUpdateItem(@RequestParam Long itemId);
+
+    @RequestMapping("service/item/deleteItemById")
+    Integer deleteItemById(@RequestParam Long itemId);
 }
