@@ -77,6 +77,8 @@ public class ItemService {
         tbItemDesc.setItemDesc(desc);
         tbItemDesc.setCreated(date);
         tbItemDesc.setUpdated(date);
+
+
         int i2 = tbItemDescMapper.insert(tbItemDesc);
         TbItemParamItem tbItemParamItem = new TbItemParamItem();
         tbItemParamItem.setItemId(itemId);
