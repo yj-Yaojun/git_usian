@@ -43,6 +43,9 @@ public class ItemController {
         return Result.error("查无结果");
     }
 
+    /**
+     * 添加商品
+     */
     @RequestMapping("insertTbItem")
     public Result insertTbItem(TbItem tbItem,String desc,String itemParams){
         Integer count = itemServiceFeign.insertTbItem(tbItem,desc,itemParams);
@@ -52,6 +55,11 @@ public class ItemController {
         return Result.error("数据插入失败");
     }
 
+    /**
+     * 根据itemId回显商品信息
+     * @param itemId
+     * @return
+     */
     @RequestMapping("preUpdateItem")
     public Result preUpdateItem(Long itemId){
         Map<String,Object> map = itemServiceFeign.preUpdateItem(itemId);

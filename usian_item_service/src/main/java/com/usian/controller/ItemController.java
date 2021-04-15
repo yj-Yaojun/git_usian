@@ -35,11 +35,19 @@ public class ItemController {
         return this.itemService.selectTbItemAllByPage(page,rows);
     }
 
+    /**
+     * 商品的添加
+     */
     @RequestMapping("insertTbItem")
     public Integer insertTbItem(@RequestBody TbItem tbItem,String desc,String itemParams){
         return itemService.insertTbItem(tbItem, desc, itemParams);
     }
 
+    /**
+     * 根据itemId回显商品信息
+     * @param itemId
+     * @return
+     */
     @RequestMapping("preUpdateItem")
     public Map<String,Object> preUpdateItem(Long itemId){
         return this.itemService.preUpdateItem(itemId);

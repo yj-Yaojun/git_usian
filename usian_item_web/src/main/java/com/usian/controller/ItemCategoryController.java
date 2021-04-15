@@ -17,6 +17,10 @@ public class ItemCategoryController {
     @Autowired
     private ItemServiceFeign itemServiceFeign;
 
+
+    /**
+     * 根据类目 ID 查询当前类目的子节点
+     */
     @RequestMapping("selectItemCategoryByParentId")
     public Result selectItemCategoryByParentId(@RequestParam(defaultValue = "0") Integer id){
         List<TbItemCat> list = itemServiceFeign.selectItemCategoryByParentId(id);

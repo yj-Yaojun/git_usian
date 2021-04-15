@@ -65,12 +65,14 @@ public class ItemService {
 
     public Integer insertTbItem(TbItem tbItem,String desc,String itemParams){
         Date date = new Date();
+        //补齐 Tbitem 数据
         long itemId = IDUtils.genItemId();
         tbItem.setId(itemId);
         tbItem.setCreated(date);
         tbItem.setUpdated(date);
         tbItem.setStatus((byte)1);
 
+        //补齐商品描述对象
         int i1=tbItemMapper.insert(tbItem);
         TbItemDesc tbItemDesc = new TbItemDesc();
         tbItemDesc.setItemId(itemId);
@@ -79,6 +81,7 @@ public class ItemService {
         tbItemDesc.setUpdated(date);
 
 
+        //补齐商品规格参数
         int i2 = tbItemDescMapper.insert(tbItemDesc);
         TbItemParamItem tbItemParamItem = new TbItemParamItem();
         tbItemParamItem.setItemId(itemId);
@@ -90,16 +93,23 @@ public class ItemService {
         return i1 + i2 + i3;
     }
 
+    /**
+     * 根据商品 ID 查询商品，商品分类，商品描述，商品规格参数
+     * @param itemId
+     * @return
+     */
     public Map<String,Object> preUpdateItem(Long itemId){
         Map<String,Object> map = new HashMap<>();
+        //根据商品 ID 查询商品
         TbItem tbItem = this.tbItemMapper.selectByPrimaryKey(itemId);
         map.put("item",tbItem);
+        //根据商品 ID 查询商品描述
         TbItemDesc itemDesc = this.tbItemDescMapper.selectByPrimaryKey(itemId);
         map.put("itemDesc",itemDesc.getItemDesc());
-
+        //根据商品 ID 查询商品类目
         TbItemCat tbItemCat = this.tbItemCatMapper.selectByPrimaryKey(tbItem.getCid());
         map.put("itemCat",tbItemCat.getName());
-
+        //根据商品 ID 查询商品规格信息
         TbItemParamItemExample example = new TbItemParamItemExample();
         TbItemParamItemExample.Criteria criteria = example.createCriteria();
         criteria.andItemIdEqualTo(itemId);

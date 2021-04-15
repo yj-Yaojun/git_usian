@@ -1,5 +1,6 @@
 package com.usian.feign;
 
+import com.usian.pojo.TbContent;
 import com.usian.pojo.TbContentCategory;
 import com.usian.utils.PageResult;
 import org.springframework.cloud.openfeign.FeignClient;
@@ -26,4 +27,10 @@ public interface ContentServiceFeign {
 
     @RequestMapping("/service/content/selectTbContentAllByCategoryId")
     PageResult selectTbContentAllByCategoryId(@RequestParam Long categoryId);
+
+    @RequestMapping("/service/content/insertTbContent")
+    Integer insertTbContent(@RequestBody TbContent tbContent);
+
+    @RequestMapping("/service/content/deleteContentByIds")
+    Integer deleteContentByIds(@RequestParam Long ids);
 }

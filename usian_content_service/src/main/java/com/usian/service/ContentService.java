@@ -9,6 +9,7 @@ import com.usian.utils.PageResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -25,5 +26,18 @@ public class ContentService {
         List<TbContent> list = tbContentMapper.selectByExampleWithBLOBs(example);
         PageInfo<TbContent> pageInfo = new PageInfo<>(list);
         return new PageResult(1,pageInfo.getTotal(),pageInfo.getList());
+    }
+
+    public Integer insertTbContent(TbContent tbContent) {
+        Date date = new Date();
+        tbContent.setCreated(date);
+        tbContent.setUpdated(date);
+        String subTitle = tbContent.getSubTitle();
+        tbContent.setTitleDesc(subTitle);
+        return tbContentMapper.insert(tbContent);
+    }
+
+    public Integer deleteContentByIds(Long ids) {
+        return tbContentMapper.deleteByPrimaryKey(ids);
     }
 }

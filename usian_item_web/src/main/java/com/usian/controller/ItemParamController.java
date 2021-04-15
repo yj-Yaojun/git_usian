@@ -18,6 +18,10 @@ public class ItemParamController {
     @Autowired
     private ItemServiceFeign itemServiceFeign;
 
+
+    /**
+     * 根据商品分类 ID 查询规格参数模板
+     */
     @RequestMapping("selectItemParamByItemCatId/{itemCatId}")
     public Result selectItemParamByItemCatId(@PathVariable Long itemCatId){
         TbItemParam tbItemParam = itemServiceFeign.selectItemParamByItemCatId(itemCatId);
